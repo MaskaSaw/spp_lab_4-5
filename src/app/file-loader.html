@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ожидание данных</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="graphql-queries.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+
+    <script> let importantTimer </script>
+    
+    <form>
+        <button class="logout-button">Выйти</button>
+    </form>
+
+    <form>
+        <button class="chat-button">Чат</button>
+    </form>
+
+    <div class="container">
+        <h1 align="center">Введите данные</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data" name="dataForm">
+            <label class="info" id="edit1">Введите строку, которую нужно заменить:</label><br><br>
+            <input class="user-info" autocomplete="off" type="text" name="stringToBeChanged" required pattern="^[a-zA-Zа-яА-ЯёЁ0-9_]{1,100}$" title="Можно ввести от 1 до 100 символов. Допускаются: русские/латинские буквы обоих регистров, цифры, знак нижнего подчёркивания."><br><br><br>
+
+            <label class="info">Введите количество замен (оставьте 0 для замены всех совпадений):</label><br><br>
+            <input class="user-info" autocomplete="off" type="text" value="0" name="numberOfChanges" required pattern="^[0-9]{1,3}$" title="Можно вводить только числа в диапазоне от 0 до 999."><br><br><br>
+
+            <label class="info" id="edit3">Введите строку, на которую нужно заменить:</label><br><br>
+            <input class="user-info" autocomplete="off" type="text" name="stringChanger" required pattern="^[a-zA-Zа-яА-ЯёЁ0-9_]{1,100}$" title="Можно ввести от 1 до 100 символов. Допускаются: русские/латинские буквы обоих регистров, цифры, знак нижнего подчёркивания."><br><br><br>    
+
+            <div class="file-loader">  
+                <input class="input-file" required id="my-file0" type="file" name="file0">
+                <label for="my-file0" class="input-file-trigger">Выберите файл...</label>           
+            </div>
+
+            <div id="fill-me">{FILL_HERE}</div>
+
+            <script src="preloading-script.js"></script>
+      
+            <input class="button" type="submit" value="Готово!">
+        </form>
+    </div>
+
+    <script src="new-files.js"></script>
+
+</body>
+</html>
