@@ -57,6 +57,7 @@ let allFilesStatus = [];
 
 let usersOnline = 0;
 
+//Схема для graphql
 let schema = buildSchema(`
     type Query {
         page(requestCommand: String): String
@@ -336,39 +337,29 @@ app.post("/upload", async function(request, response) {
             if (allFiles[j] != undefined) {
 	 	 		newInfo += `<tr id="deleter${j}"><td>${compressedFileNames[j]}</td>`;
 
-            	switch (allFilesStatus[j]) {
+                  switch (allFilesStatus[j]) {
             		case _FILE_TOO_BIG_:
-            			newInfo += `<td class="fail">Провал</td>
-            						<td>Недоступно</td>
-            						<td>Размер файла превышал 1МБ`;
+            			newInfo += `<td class="fail">Ошибка.Размер файла превышал 1МБ </td>
+            						<td>Недоступно</td>`;
             			break;
-
-                    case _NOTHING_TO_CHANGE_:
-                        newInfo += `<td class="fail">Провал</td>
-                                    <td>Недоступно</td>
-                                    <td>В файле не было совпадений`;
-                        break;
 
             		case _SUCCESS_:
             			newInfo += `<td class="success">Успех</td>
             						<td>
             							<form action="/download" method="get" enctype="multipart/form-data">
-                    						<input class="downloading-button" type="submit" name="downloader${j}" value="Скачать">
+                    						<input class="downloading-button" type="submit" name="downloader${j}" value="Загрузить">
                 						</form>
-                					</td>
-                					<td>-`;
+                					</td>`;
             			break;
 
             		default:
-            			newInfo += `<td class="fail">Провал</td>
-            						<td>Недоступно</td>
-            						<td>Неизвестная ошибка`;
+            			newInfo += `<td class="fail">Неизвестная ошибка</td>
+            						<td>Недоступно</td>`;
             			break;
             	}
             			    
-         		newInfo += `</td> 
-                            <td>
-                                <button type="submit" class="downloading-button" onclick="removeElement('deleter${j}')">Убрать</button>
+         		newInfo += `<td>
+                                <button type="submit" class="downloading-button" onclick="removeElement('deleter${j}')">Удалить</button>
                             </td>
                             </tr>`;
             }
